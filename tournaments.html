@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="jquery\css\smoothness\jquery-ui-1.10.0.custom.min.css" />
+    <link rel="stylesheet" href="style\configs.css" />
+    <script src="jquery\jquery-1.9.1.min.js"></script>
+    <script src="jquery\jquery-ui-1.10.0.custom.min.js"></script>
+    <script src="javascript\configs.js"></script>
+    <script>
+      $(function() {
+        $("#tabs").tabs();
+        $("button").button();
+        $(".radio").buttonset();
+        configInit();
+      });
+    </script>
+  </head>
+  <body>
+  
+    <div id="tabs">
+      <ul>
+        <li><a href="#configs-tab">Configs</a></li>
+        <li><a href="#tournament-tab">Tournament</a></li>
+      </ul>
+      <div id="configs-tab">
+        <div id="tournament-type-wrapper">
+          <label id="tournament-type-label">Tournament Type : </label>
+          <div id="tournament-type" class="radio">
+            <input type="radio" id="versus" name="tournament-type" /><label for="versus">Versus</label>
+            <input type="radio" id="speedRun" name="tournament-type" /><label for="speedRun">Speed Run</label>
+          </div>
+        </div>
+        
+        <label for="team-size">Team Size :</label><input type='text' id='team-size'/>
+        
+        <div id="participants"></div>
+        <button onClick="addInput()">Add Participant</button>
+      </div>
+      <div id="tournament-tab">
+        Tournament
+      </div>
+    </div>
+  </body>
+</html>
