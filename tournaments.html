@@ -5,6 +5,7 @@
     <script src="jquery\jquery-1.9.1.min.js"></script>
     <script src="jquery\jquery-ui-1.10.0.custom.min.js"></script>
     <script src="javascript\configs.js"></script>
+		<script src="javascript\single-list.js"></script>
     <script>
       $(function() {
         $("#tabs").tabs();
@@ -25,15 +26,18 @@
         <div id="tournament-type-wrapper">
           <label id="tournament-type-label">Tournament Type : </label>
           <div id="tournament-type" class="radio">
-            <input type="radio" id="versus" name="tournament-type" /><label for="versus">Versus</label>
-            <input type="radio" id="speedRun" name="tournament-type" /><label for="speedRun">Speed Run</label>
+            <input type="radio" name="tournament-type" value="single-hierarchy" id="single-hierarchy" /><label for="single-hierarchy">Single Hierarchy</label>
+            <input type="radio" name="tournament-type" value="double-hierarchy" id="double-hierarchy" /><label for="double-hierarchy">Double Hierarchy</label>
+						<input type="radio" name="tournament-type" value="grid" id="grid" /><label for="grid">Grid</label>
+						<input type="radio" name="tournament-type" value="single-list" id="single-list" /><label for="single-list">Single List</label>
           </div>
         </div>
-        
-        <label for="team-size">Team Size :</label><input type='text' id='team-size'/>
+		
+        <label for="team-size">Team Size :</label><input type='number' min="0" id='team-size'/>
         
         <div id="participants"></div>
         <button onClick="addInput()">Add Participant</button>
+		<button onClick="generateTournament()">Generate</button>
       </div>
       <div id="tournament-tab">
         Tournament

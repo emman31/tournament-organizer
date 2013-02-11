@@ -20,6 +20,14 @@ function addInput() {
   });
 }
 
+function generateTournament() {
+	switch($('#tournament-type').val()){
+		case "single-list":
+			break;
+			
+	}
+}
+
 function getInput(nb) {
-  return "<span id='participant-" + nb + "-wrapper'><input type='text' id='participant-" + nb + "'/><button class='delete'>Delete</button><span><br />";
+  return "<span id='participant-" + nb + "-wrapper'><input type='text' id='participant-" + nb + "'/><button class='delete' tabindex='-1'>Delete</button><span><br />";
 }
