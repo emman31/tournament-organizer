@@ -1,30 +1,13 @@
 var nextParticipantId = 0;
 
 function configInit() {
-  // Retrieve participants from local storage.
-  var savedParticipants = localStorage.getItem("tournament-participants");
-  if (savedParticipants) {
-    $.each(JSON.parse(savedParticipants), function(index, value) {
-      addInput();
-      fillLastParticipant(value);
-    });
-  }
-  
-  // Retrieve team size from local storage
-  var savedTeamSize = localStorage.getItem("tournament-teamSize");
-  if (savedTeamSize) {
-    $("#team-size").val(savedTeamSize);
-  }
-  
-  // Retrieve tournament type from local storage
-  var savedTournamentType = localStorage.getItem("tournament-type");
-  if (savedTournamentType) {
-    $("#tournament-type #" + savedTournamentType).check();
-  }
+  loadStoredData();
 
   // Add delete behavior on the delete button.
   $("#participants").delegate(".delete", "click", function(){
     $(this).parent().remove();
+    // save participants on delete.
+    localStorage.setItem("tournament-participants", JSON.stringify(getAllParticipants()));
   });
   
   // Save participants on each change.
@@ -70,7 +53,7 @@ function addInput() {
 function generateTournament() {
   switch($("#tournament-type input:checked").val()){
     case "single-list":
-      generateSingleList();
+      generateSingleList(generateTeams(), $("#team-size").val());
       break;
   }
 }
@@ -95,4 +78,49 @@ function fillLastParticipant(name) {
 
 function getInput(nb) {
   return "<span id='participant-" + nb + "-wrapper'><input type='text' id='participant-" + nb + "'/><button class='delete' tabindex='-1'>Delete</button><span><br />";
+}
+
+function generateTeams() {
+  var participants = getAllParticipants();
+  var teamSize = $("#team-size").val();
+  var teams = [];
+  var idParticipant;
+  var currentTeam;
+  
+  while (participants.length > 0) {
+    currentTeam = "";
+    for (var i = 1; i <= teamSize; i ++) {
+      idParticipant = Math.floor(Math.random()*participants.length);
+      currentTeam += participants.splice(idParticipant, 1);
+      if (i < teamSize) {
+        currentTeam += " - ";
+      }
+    }
+    teams.push(currentTeam);
+  }
+  
+  return teams;
+}
+
+function loadStoredData() {
+  // Retrieve participants from local storage.
+  var savedParticipants = localStorage.getItem("tournament-participants");
+  if (savedParticipants) {
+    $.each(JSON.parse(savedParticipants), function(index, value) {
+      addInput();
+      fillLastParticipant(value);
+    });
+  }
+  
+  // Retrieve team size from local storage
+  var savedTeamSize = localStorage.getItem("tournament-teamSize");
+  if (savedTeamSize) {
+    $("#team-size").val(savedTeamSize);
+  }
+  
+  // Retrieve tournament type from local storage
+  var savedTournamentType = localStorage.getItem("tournament-type");
+  if (savedTournamentType) {
+    $("#tournament-type #" + savedTournamentType).check();
+  }
 }
