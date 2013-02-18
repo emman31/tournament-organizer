@@ -1,7 +1,5 @@
 function generateSingleList(participants) {
   $("#tournament-tree").html("");
-  
-  
   $("#tournament-tree").append("<table id='single-list-tournament-wrapper'>");
   
   $.each(participants, function(index, value) {

@@ -53,7 +53,10 @@ function addInput() {
 function generateTournament() {
   switch($("#tournament-type input:checked").val()){
     case "single-list":
-      generateSingleList(generateTeams(), $("#team-size").val());
+      generateSingleList(generateTeams());
+      break;
+    case "grid":
+      generateGrid(generateTeams());
       break;
   }
 }
